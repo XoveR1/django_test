@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit {{ blog.name }}</title>
+</head>
+<body>
+    <h1>Edit {{ blog.name }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'blog:save' blog.id %}" method="post">
+        {% csrf_token %}
+        <p>
+            <label>Blog name:<input type="text" name="name" value="{{ blog.name }}" max="60" /></label>
+        </p>
+        <p>
+            <label>Blog text:<textarea name="desc">{{ blog.desc }}</textarea></label>
+        </p>
+
+        <input type="submit" value="Save"/>
+    </form>
+</body>
+</html>

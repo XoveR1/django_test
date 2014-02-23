@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blogs list</title>
+</head>
+<body>
+    <h1>Blogs list</h1>
+    {% if blogs_list %}
+        <ul>
+            {% for blog in blogs_list %}
+                <li>
+                    <a href="{% url 'blog:detail' blog.id %}">{{ blog.name }}</a>
+                    <span>|</span>
+                    <a href="{% url 'blog:edit' blog.id %}">Edit</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No blogs are available.</p>
+    {% endif %}
+</body>
+</html>
