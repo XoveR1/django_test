@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>{% block title %}Blog{% endblock %}</title>
+       {% load staticfiles %}
+       <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+       <script src="{% static 'js/jquery.js' %}"></script>
+       <script src="{% static 'js/bootstrap.js' %}"></script>
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

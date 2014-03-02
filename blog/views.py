@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from django.contrib.auth.forms import UserCreationForm
 
 class IndexView(generic.ListView):
     template_name = 'blog/index.html'
@@ -28,8 +29,24 @@ def blog_save(request, blog_id):
     except (KeyError, Blog.DoesNotExist):
         return render(request, 'blog/edit.html', {
             'blog': blog,
-            'error_message': "Blog with such id doesn't exist.",
+            'error_message': "Blog with such id doesn't exist."
         })
     else:
         blog.save()
         return HttpResponseRedirect(reverse('blog:index'))
+
+def signup(request):
+    form = UserCreationForm()
+    context = {'form': form}
+    return render(request, 'registration/signup.html', context)
+
+def signup_process(request):
+    if request.method =='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/login')
+    else:
+        form = UserCreationForm()
+    context = {'form': form}
+    return render(request, 'registration/signup.html', context)
